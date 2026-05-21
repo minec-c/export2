@@ -41,7 +41,7 @@ jobs:
       
           cd g340
       
-          ./Godot_v3.4-stable_linux_headless.64 \
+          ../Godot_v3.4-stable_linux_headless.64 \
           --headless \
           --export "HTML5" build/index.html
 
