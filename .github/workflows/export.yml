@@ -2,7 +2,10 @@ name: Export Godot HTML5
 
 on:
   workflow_dispatch:
-
+  
+permissions:
+  contents: write
+  
 jobs:
   export-web:
     runs-on: ubuntu-latest
