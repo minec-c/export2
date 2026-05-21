@@ -31,9 +31,11 @@ jobs:
 
       - name: Export project
         run: |
-          mkdir -p build
-
-          ./Godot_v3.4.0-stable_linux_headless.64 \
+          mkdir -p g340/build
+      
+          cd g340
+      
+          ../Godot_v3.4.0-stable_linux_headless.64 \
           --headless \
           --export "HTML5" build/index.html
 
@@ -41,7 +43,7 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-
-          git add build/
+      
+          git add g340/build/
           git commit -m "Export HTML5 build" || echo "No changes"
           git push
