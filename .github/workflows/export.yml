@@ -24,7 +24,7 @@ jobs:
 
           unzip Godot_v3.4.0-stable_export_templates.tpz -d templates
 
-          mkdir -p ~/.local/share/godot/templates/3.5.3.stable
+          mkdir -p ~/.local/share/godot/templates/3.4.0.stable
 
           cp templates/templates/webassembly_* \
           ~/.local/share/godot/templates/3.4.0.stable/
