@@ -10,24 +10,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+
+
       - name: Download Godot
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/3.4.0/Godot_v3.4.0-stable_linux_headless.64.zip
-          unzip Godot_v3.4.0-stable_linux_headless.64.zip
-          chmod +x Godot_v3.4.0-stable_linux_headless.64
+          wget https://github.com/godotengine/godot/releases/download/3.4-stable/Godot_v3.4-stable_linux_headless.64.zip
+      
+          unzip Godot_v3.4-stable_linux_headless.64.zip
+      
+          chmod +x Godot_v3.4-stable_linux_headless.64
+
+
 
       - name: Download Export Templates
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/3.4.0/Godot_v3.4.0-stable_export_templates.tpz
+          wget https://github.com/godotengine/godot/releases/download/3.4-stable/Godot_v3.4-stable_export_templates.tpz
 
           mkdir templates
-
-          unzip Godot_v3.4.0-stable_export_templates.tpz -d templates
-
-          mkdir -p ~/.local/share/godot/templates/3.4.0.stable
-
+          
+          unzip Godot_v3.4-stable_export_templates.tpz -d templates
+          
+          mkdir -p ~/.local/share/godot/templates/3.4.stable
+          
           cp templates/templates/webassembly_* \
-          ~/.local/share/godot/templates/3.4.0.stable/
+          ~/.local/share/godot/templates/3.4.stable/
 
       - name: Export project
         run: |
@@ -35,7 +41,7 @@ jobs:
       
           cd g340
       
-          ../Godot_v3.4.0-stable_linux_headless.64 \
+          ./Godot_v3.4-stable_linux_headless.64 \
           --headless \
           --export "HTML5" build/index.html
 
