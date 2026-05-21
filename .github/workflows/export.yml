@@ -1,0 +1,47 @@
+name: Export Godot HTML5
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Godot
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/3.5.3/Godot_v3.5.3-stable_linux_headless.64.zip
+          unzip Godot_v3.5.3-stable_linux_headless.64.zip
+          chmod +x Godot_v3.5.3-stable_linux_headless.64
+
+      - name: Download Export Templates
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/3.5.3/Godot_v3.5.3-stable_export_templates.tpz
+
+          mkdir templates
+
+          unzip Godot_v3.5.3-stable_export_templates.tpz -d templates
+
+          mkdir -p ~/.local/share/godot/templates/3.5.3.stable
+
+          cp templates/templates/webassembly_* \
+          ~/.local/share/godot/templates/3.5.3.stable/
+
+      - name: Export project
+        run: |
+          mkdir -p build
+
+          ./Godot_v3.5.3-stable_linux_headless.64 \
+          --headless \
+          --export "HTML5" build/index.html
+
+      - name: Commit generated files
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add build/
+          git commit -m "Export HTML5 build" || echo "No changes"
+          git push
